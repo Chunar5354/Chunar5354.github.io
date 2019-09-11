@@ -14,7 +14,7 @@ header:
       zh-HK   : *ZH_HANT
       ko      : &KO       아카이브
       ko-KR   : *KO
-    url: /layout/archive.html
+    url: /_layouts/archive.html
 
   - titles:
       en      : &EN       Test2
