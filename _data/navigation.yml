@@ -1,6 +1,6 @@
 header:
   - titles:
-      en      : &EN       Test1
+      en      : &EN       Archive
       en-GB   : *EN
       en-US   : *EN
       en-CA   : *EN
@@ -14,7 +14,7 @@ header:
       zh-HK   : *ZH_HANT
       ko      : &KO       아카이브
       ko-KR   : *KO
-    url: https://www.google.com
+    url: /layout/archive.html
 
   - titles:
       en      : &EN       Test2
