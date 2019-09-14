@@ -1,7 +1,7 @@
 ---
 layout: article
 title: Play With Raspberry Pi
-tags: PaspberryPi, Linux
+tags: PaspberryPi Linux
 article_header:
   type: overlay
   theme: dark
