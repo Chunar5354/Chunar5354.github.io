@@ -9,6 +9,10 @@ article_header:
   background_image: false
 ---
 
+关于树莓派的基本使用，基于官方的Raspbian系统
+
+<!--more-->
+
 # 硬件准备篇
 
 首先树莓派是一定的啦，然后还需要需要PC机、TF(SD)卡，和树莓派的电源（树莓派标准是2.5A，一般的手机充电器可能不好用）
