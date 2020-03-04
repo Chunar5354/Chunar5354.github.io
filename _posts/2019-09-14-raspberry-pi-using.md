@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Play With Raspberry Pi
+title: Raspberry Pi Initial Configuration
 tags: PaspberryPi Linux
 article_header:
   type: overlay
@@ -9,7 +9,7 @@ article_header:
   background_image: false
 ---
 
-关于树莓派的基本使用，基于官方的Raspbian系统
+树莓派的开机配置，基于官方的Raspbian系统
 
 <!--more-->
 
