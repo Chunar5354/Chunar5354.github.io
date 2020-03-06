@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Raspberry Pi Initial Configuration
+title: 树莓派开机教程
 tags: PaspberryPi Linux
 article_header:
   type: overlay
