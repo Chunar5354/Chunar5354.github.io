@@ -1,6 +1,6 @@
 ---
 layout: article
-title: Raspberry Pi Common Software
+title: 树莓派上的一些常用软件
 tags: PaspberryPi Linux
 article_header:
   type: overlay
