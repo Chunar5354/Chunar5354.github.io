@@ -221,7 +221,7 @@ TEMPLATES = [
 ## 3.在views.py中渲染模板
 
 在上面的polls app的基础上，修改`views.py`文件：
-```
+```python
 from django.http import HttpResponse
 from django.shortcuts import render  # 导入Django的渲染方法
 
