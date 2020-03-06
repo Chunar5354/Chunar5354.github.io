@@ -67,7 +67,7 @@ mysite/
 
 # 运行一个Django项目
 
-## 创建app
+## 1.创建app
 
 django的程序运行一般是通过app来实现的，可以在命令行创建app：
 
@@ -96,7 +96,7 @@ mysite/
         views.py
 ```
 
-## 编辑网页内容
+## 2.编辑网页内容
 
 下一步是设计你想要在页面上显示的内容，它是由app目录下的views.py文件决定的，对于polls app来说，就是`polls/views.py`文件
 
@@ -112,7 +112,7 @@ def another(request):
 
 Django的网页内容访问通常都是访问的views.py中的`函数`，比如上面的index函数
 
-## 注册url地址
+## 3.注册url地址
 
 然后为你刚刚涉及的内容注册一个url地址，以便能够在浏览器地址输入栏中找到它
 
@@ -151,7 +151,7 @@ urlpatterns = [
 与上面类似，path()后面的第一个参数指的是url子地址（在本例中将index函数设计成polls app的根地址，所以该参数是一个空字符串）；第二个参数意为
 该url子地址指向的是`views.py中的某个函数`；第三个name是一个可选参数，为url地址命名，这样可以方便模板套用等统一的操作
 
-## 运行
+## 4.运行
 
 经过以上两个文件的配置，此刻再运行这个项目
 ```
@@ -167,7 +167,7 @@ urlpatterns = [
 
 通常的做法是将页面内容写在一个`html`文件中，再在`views.py`中渲染它
 
-## 新建模板文件
+## 1.新建模板文件
 
 首先在mysite的根目录下创建一个`templates`文件夹，用于存放html模板文件
 ```
@@ -185,13 +185,13 @@ urlpatterns = [
 </head>
 
 <body>
-  <h1>h1h1h1h1h1</h1>
-  <h2>h2h2h2h2h2h2h2h2</h2>
+	<h1>h1h1h1h1h1</h1>
+	<h2>h2h2h2h2h2h2h2h2</h2>
 </body>
 </html>
 ```
 
-## 添加路径到Django的默认设置
+## 2.添加路径到Django的默认设置
 
 为了使用方便，可以将templates文件添加到Django项目的默认路径中
 
@@ -218,7 +218,7 @@ TEMPLATES = [
 
 这样项目中的其他文件在寻找html模板时就会自动到templates中查找
 
-## 在views.py中渲染模板
+## 3.在views.py中渲染模板
 
 在上面的polls app的基础上，修改`views.py`文件：
 ```
@@ -232,7 +232,7 @@ def another(request):
 	  return render(request, 'base.html')   # 在这里直接使用base.html作为参数，会自动向templates路径下查找
 ```
 
-## 运行
+## 4.运行
 
 此时再运行这个项目
 ```
@@ -246,7 +246,7 @@ def another(request):
 
 Django非常优秀的一点是它可以很方便的与服务器上的数据库连接，下面以MYSQL数据库为例展示简单用法
 
-## 修改默认数据库
+## 1.修改默认数据库
 
 Django的默认数据库是Sqlite3，如果想要为项目使用其他的数据库（比如MYSQL）需要修改配置文件`mysite/settings.py`：
 ```python
@@ -278,7 +278,7 @@ DATABASES = {
 
 或者使用`pymysql`来实现migrate，首先安装pymysql：
 ```
-pip3 install pymysql
+# pip install pymysql
 ```
 
 然后修改`mysite/__init__.py`，在其中添加：
@@ -290,21 +290,21 @@ pymysql.install_as_MySQLdb()
 
 此时运行`python manage.py migrate`仍然会报错，错误发生在一个`base.py`文件中，编辑它（换成自己的路径）：
 ```
-vim /usr/local/python3/lib/python3.8/site-packages/django/db/backends/mysql/base.py
+# vim /usr/local/python3/lib/python3.7/site-packages/django/db/backends/mysql/base.py
 ```
 
 注释掉其中的35 36行
 
 再次运行`python manage.py migrate`仍然会报错，错误发生在一个`operations.py`文件中，编辑它（换成自己的路径）：
 ```
-vim /usr/local/python3/lib/python3.8/site-packages/django/db/backends/mysql/operations.py
+# vim /usr/local/python3/lib/python3.7/site-packages/django/db/backends/mysql/operations.py
 ```
 
 将其146行的`decode`替换为`encode`
 
 此时可以正常运行`python manage.py migrate`
 
-## 在数据库中添加自定义的数据
+## 2.在数据库中添加自定义的数据
 
 针对MYSQL数据库，在数据库中创建表是通过在app目录下models.py创建新类来实现的
 
@@ -368,7 +368,7 @@ Running migrations:
 
 说明表格创建成功，可以到mysql数据库中查看
 
-## 在Django中添加已有的数据库
+## 3.在Django中添加已有的数据库
 
 首先修改`mysite/settings.py`中的DATABASES：
 ```python
@@ -399,7 +399,7 @@ DATABASES = {
 
 - tips：注意要在`mysite/setings.py`中的 `INSTALLED_APPS` 配置项中添加对应的app
 
-## 管理已有数据库
+## 4.管理已有数据库
 
 用上面的方法添加已有数据库可能会出现一些问题，比如在migrate的时候因为格式不匹配等，可能会强制改变原来数据库的数据格式，
 下面介绍一种方式可以将原有的数据库比较好的匹配到django框架当中：
@@ -486,7 +486,7 @@ MariaDB [(none)]> source database.sql;
 此时原来的数据库的数据就完美的融入了Django框架啦
 
 
-## 在Django中使用redis数据库作为缓存
+## 5.在Django中使用redis数据库作为缓存
 
 设置了redis作为django的缓存数据库后就可以使用django内置的cache方法来直接缓存数据，不需要再通过额外的调用python的redis扩展库
 
