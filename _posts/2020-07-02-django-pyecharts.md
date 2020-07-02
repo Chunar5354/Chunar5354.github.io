@@ -9,7 +9,7 @@ article_header:
   background_image: false
 ---
 
-在Django的网页中嵌入图表，主要Python的pyecharts库来实现
+在Django的网页中嵌入图表，主要通过Python的pyecharts库来实现
 
 <!--more-->
 
