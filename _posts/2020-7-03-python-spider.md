@@ -229,4 +229,23 @@ dangdang.run()
   
 - 2.有时候我们不清楚自己写的XPath语句好不好用，可以在Chrome控制台的`Console`一栏进行测试，方式是输入命令`$x("something")`，如下图所示：
 
-<img width="1000" height="300" src="https://raw.githubusercontent.com/Chunar5354/Chunar5354.github.io/master/_posts/images/xpath_console.png"/>
+<img width="1000" height="282" src="https://raw.githubusercontent.com/Chunar5354/Chunar5354.github.io/master/_posts/images/xpath_console.png"/>
+
+
+### BeautifulSoup
+
+BeautifulSoup是Python的一个XML文本解析库，个人认为相比于XPath，BeautifulSoup使用起来更加的方便，功能也更为强大
+
+- 安装：
+
+```
+pip install beautifulsoup4
+```
+
+与XPath类似，BeautifulSoup也是通过XML中的标签来定位的，不过在BeautifulSoup中内置了很多查找方法，不需要程序员自己去编写查找路径的语句
+
+关于BeautifulSoup查找节点的方法，[官网](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)给了很好的示例，下面仍然以爬取当当网为例，展示BeautifulSoup的应用：
+
+```python
+from bs4 import BeautifulSoup
+```
