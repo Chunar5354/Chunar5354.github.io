@@ -17,4 +17,4 @@ article_header:
 
 试一下图片
 
-<img class="image image--md" src="/_posts/images/11.png"/>
+<img class="image image--md" src="https://github.com/Chunar5354/Chunar5354.github.io/blob/master/_posts/images/11.png"/>
