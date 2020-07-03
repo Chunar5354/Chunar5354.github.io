@@ -43,7 +43,7 @@ article_header:
 
 我们可以在Chrome浏览器中按`F12`快捷键来查看headers的相关内容，如图中所示：
 
-<img class="image image--xl" src="https://raw.githubusercontent.com/Chunar5354/Chunar5354.github.io/master/_posts/images/headers.png"/>
+<img class="image image--xxxxl" src="https://raw.githubusercontent.com/Chunar5354/Chunar5354.github.io/master/_posts/images/headers.png"/>
 
 
 其中`General`和`Request Headers`都是包含在请求头中的内容（General Headers是共同存在于请求头和响应头中的通用内容）
