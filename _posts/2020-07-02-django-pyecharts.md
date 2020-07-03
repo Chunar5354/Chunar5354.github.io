@@ -13,7 +13,7 @@ article_header:
 
 <!--more-->
 
-## pyecharts
+# pyecharts
 
 - [官方文档](https://pyecharts.org/)
 
@@ -25,16 +25,18 @@ article_header:
 
 pyecharts提供了很好的图表嵌入功能，具体的使用方法根据官方文档的介绍很容易就能实现
 
-## Django前后端分离
+# Django实例
 
-### 什么是前后端分离
+## 前后端分离
 
-网上的说法一大堆，在我的理解前后端分离就是为了使开发专一化，将前端和后端的代码分离开来，中间用统一的接口（通常是JSON数据）连接，
+在Django中应用图表，最好使用前后端分离的方式，将数据处理放在后端，前端只负责显示
+
+关于前后端分离，网上的说法一大堆，在我的理解前后端分离就是为了使开发专一化，将前端和后端的代码分离开来，中间用统一的接口（通常是JSON数据）连接，
 这样可以使前端和后端的开发者专注自己分块的工作。而在保留接口一致的情况下单独的修改一端不会对另一端产生影响。
 
-### Django中的前后端分离
+## 官方示例分析
 
-需要借助一个扩展库`rest_framework`
+部署图表应用还需要借助一个扩展库`rest_framework`
 
 - 安装
 ```
@@ -55,7 +57,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-Django中前后端分离的用法就相当于用前端的html文件去调用后端的python文件（通常是views.py），比如pyecharts的
+Django中前后端分离的用法关键在于前后端的数据传输（后端通常是views.py），比如pyecharts的
 一个[官方示例](https://pyecharts.org/#/zh-cn/web_django?id=django-%e5%89%8d%e5%90%8e%e7%ab%af%e5%88%86%e7%a6%bb)
 
 前端的html文件：
@@ -74,7 +76,7 @@ Django中前后端分离的用法就相当于用前端的html文件去调用后�
     function fetchData() {
         $.ajax({
             type: "GET",
-            url: "http://127.0.0.1:8000/demo/bar",  // 此处的url对应views.py中的一个函数
+            url: "http://127.0.0.1:8000/demo/bar",  // 此处的url对应views.py中注册为"/demo/bar"的函数
             // 实际使用的时候http链接的方式通常不能正确的访问到views.py中的函数，最好是写成相对地址的形式，比如 url: "../bar"
             dataType: 'json',
             success: function (result) {
@@ -135,7 +137,7 @@ urlpatterns = [
 对于前后端修改的时候只要保持这两个接口不变，单独的修改就不会影响到另一端
 
 
-### 前后端互相传递数据
+## 前后端传递数据解析
 
 像前面所用到的一样，通过Ajax(Asynchronous JavaScript and XML)，可以实现前后端的异步数据交互
 
