@@ -1,6 +1,6 @@
 ---
 layout: article
-tags: MySQL sql
+tags: MySQL SQL
 title: MySQL学习笔记
 article_header:
   type: overlay
