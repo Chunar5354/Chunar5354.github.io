@@ -15,7 +15,7 @@ article_header:
 
 以下描述基于下图所示网络模型：
 
-<img width="1074" height="619" src="https://raw.githubusercontent.com/Chunar5354/Chunar5354.github.io/master/_posts/images/web-req.png"/>
+<img width="800" height="461" src="https://raw.githubusercontent.com/Chunar5354/Chunar5354.github.io/master/_posts/images/web-req.png"/>
 
 ## 1.获取IP地址
 
