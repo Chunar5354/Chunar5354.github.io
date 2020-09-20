@@ -147,16 +147,14 @@ if request.method == 'POST':
 ```html
 {% if user.is_authenticated %}
 	<div class="container">
-		{% block content %}
 
-		{% endblock content %}
 	</div>
 {% else %}
 	<h5 style="text-align: center">Please <a href="/login">sign in</a></h5>
 {% endif %}
 ```
 
-上面的代码表示如果用户已登录，将显示content中的内容，否则给出登录提示
+上面的代码表示如果用户已登录，将显示if中的内容，否则给出登录提示
 
 这里要注意不能把登录界面也放在content中，因为这样在未登录的时候无论如何也不会显示登陆界面
 
