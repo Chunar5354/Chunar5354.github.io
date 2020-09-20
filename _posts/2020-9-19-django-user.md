@@ -144,17 +144,21 @@ if request.method == 'POST':
 
 在Django中，前端html文件也含有user对象，可以直接进行判断
 
-```html
-{% if user.is_authenticated %}
+```xml
+{ if user.is_authenticated }
 	<div class="container">
+		{ block content }
 
+		{ endblock content }
 	</div>
-{% else %}
+{ else }
 	<h5 style="text-align: center">Please <a href="/login">sign in</a></h5>
-{% endif %}
+{ endif }
 ```
 
-上面的代码表示如果用户已登录，将显示if中的内容，否则给出登录提示
+（注意这里所有的`{}`其实是`{% %}`，因为根Jekyll格式有冲突，所以在这里用{}表示
+
+上面的代码表示如果用户已登录，将显示content中的内容，否则给出登录提示
 
 这里要注意不能把登录界面也放在content中，因为这样在未登录的时候无论如何也不会显示登陆界面
 
