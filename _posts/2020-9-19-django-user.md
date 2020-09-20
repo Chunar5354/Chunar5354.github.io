@@ -144,7 +144,7 @@ if request.method == 'POST':
 
 在Django中，前端html文件也含有user对象，可以直接进行判断
 
-```xml
+```html
 {% if user.is_authenticated %}
 	<div class="container">
 		{% block content %}
