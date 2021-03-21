@@ -29,7 +29,7 @@ MySQL数据库的安装、配置以及用法
 
 官方针对不同的系统给出了不同的配置文件内容，具体可以在[官网](https://downloads.mariadb.org/mariadb/repositories/)查看，比如centos7：
 ```
-# MariaDB 10.4 CentOS repository list - created 2019-09-09 06:32 UTC
+# MariaDB 10.4 CentOS repository list - created 2020-09-09 06:32 UTC
 # http://downloads.mariadb.org/mariadb/repositories/
 [mariadb]
 name = MariaDB

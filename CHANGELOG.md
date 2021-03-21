@@ -1,6 +1,6 @@
 # Change Log
 
-## 2.2.6 (2019-02-02)
+## 2.2.6 (2020-02-02)
 
 ### Enhancements
 
@@ -13,7 +13,7 @@
 - Fix some spelling errors in documents
 - Fix some errors in configs
 
-## 2.2.5 (2019-12-08)
+## 2.2.5 (2020-12-08)
 
 ### Enhancements
 
