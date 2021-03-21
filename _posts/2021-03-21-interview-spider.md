@@ -1,13 +1,17 @@
 ---
 layout: article
 tags: 面试 爬虫
-title: 面试中最常被问到的竟然是...通过Python爬取面经并分词统计
+title: 面试中最常被问到的竟然是...
 article_header:
   type: overlay
   theme: dark
   background_color: '#123'
   background_image: false
 ---
+
+通过Python爬取牛客网面经并分词统计
+
+<!--more-->
 
 俗话说：“知己知彼，百战不殆”，在准备面试的过程中，大家基本都会在网上搜集前辈们的面经，借此来了解各个公司在面试过程中常常提问的问题，这样就能够针对性的做出准备
 
