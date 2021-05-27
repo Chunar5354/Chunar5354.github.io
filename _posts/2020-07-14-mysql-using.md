@@ -29,7 +29,7 @@ MySQL数据库的安装、配置以及用法
 
 官方针对不同的系统给出了不同的配置文件内容，具体可以在[官网](https://downloads.mariadb.org/mariadb/repositories/)查看，比如centos7：
 ```
-# MariaDB 10.4 CentOS repository list - created 2020-09-09 06:32 UTC
+# MariaDB 10.4 CentOS repository list - created 2019-09-09 06:32 UTC
 # http://downloads.mariadb.org/mariadb/repositories/
 [mariadb]
 name = MariaDB
@@ -110,6 +110,8 @@ centos由于有防火墙的存在，默认是无法远程连接mysql的，需要
   ```
   - 注意每一条mysql的命令都需要以`;`为结尾
   - 设置成功后就可以通过密码登陆`sudo mysql -h localhost -u root -p`，-h表示host，-u表示user，后面要带参数，-p表示password密码登陆
+  
+# 远程登陆设置
 
 ## 创建新用户并授权
 
@@ -133,6 +135,14 @@ grant privileges on databasename.tablename to 'username'@'host'
 - `tablename`表示权限针对哪一个表格，如果对于所有表格都赋予该权限，将`tablename`替换成`*`
 - 注意二者之间的`.`不要落下
 - `username`和`host`意义与上面一样
+
+比如：
+
+```
+grant all privileges on DBname.* to 'test_user'@'%' identified by 'pswd123' with grant option;
+```
+
+上面的语句为test_user用户在所有ip地址下经密码pswd123给DBname这个数据库的所有表授权了所有（all）权限
   
 ### 3.撤销权限
 ```
@@ -155,43 +165,6 @@ drop user 'username'@'host'
 注释掉其中的`bind-address  = 127.0.0.1`这一行  
 然后保存，重启
 
-## 忘记密码
-
-这里针对MariaDB在Centos7系统上的情况，如果忘记root密码，可以首先修改配置文件`vim /etc/my.cnf`
-
-在其中添加
-
-```
-[mysqld]
-skip-grant-tables
-```
-
-这样就能在登录的时候跳过权限认证，然后重启MariaDB
-
-```
-# sudo systemctl restart mariadb
-```
-
-然后在命令行输入`mysql`进入mysql
-
-首先刷新权限
-```
-MaiaDB [(none)]> FLUSH PRIVILEGES;
-```
-
-设置新密码
-
-```
-MaiaDB [(none)]> ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
-```
-
-然后再刷新权限
-
-```
-MaiaDB [(none)]> FLUSH PRIVILEGES;
-```
-
-这样新的root密码就修改好了
 
 # 常用命令
 
@@ -343,7 +316,7 @@ ALTER TABLE 'tablename'
 
 在指定位置插入一列，`AFTER`后面指的是插入在那一列的后面
 
-#### 插入自增列
+### 插入自增列
 
 插入名为`id`的自增列并将其设为主键（FIRST表示插入到第一列）
 
@@ -390,15 +363,66 @@ create database db_name default charset=utf8;
 alter table table_name convert to character set utf8;
 ```
 
-# MySQL的一些特性
+## 2.忘记密码
 
-## MYSQL中的索引
+这里针对MariaDB在Centos7系统上的情况，如果忘记root密码，可以首先修改配置文件`vim /etc/my.cnf`
+
+在其中添加
+
+```
+[mysqld]
+skip-grant-tables
+```
+
+这样就能在登录的时候跳过权限认证，然后重启MariaDB
+
+```
+# sudo systemctl restart mariadb
+```
+
+然后在命令行输入`mysql`进入mysql
+
+可能会遇到`The MariaDB server is running with the --skip-grant-tables option so it cannot execute this statement`这个问题，其实这里可以不用跳过权限验证，如果有其他用户的话用其他用户进行登录也是可以修改root的密码的
+
+首先刷新权限
+```
+MaiaDB [(none)]> FLUSH PRIVILEGES;
+```
+
+设置新密码
+
+```
+MaiaDB [(none)]> ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_password';
+```
+
+然后再刷新权限
+
+```
+MaiaDB [(none)]> FLUSH PRIVILEGES;
+```
+
+这样新的root密码就修改好了
+
+## 3.身份验证错误
+
+在Django中使用MySQL时可能会出现`plugin caching_sha2_password could not be loaded`错误
+
+是因为新版本的MySQL默认使用caching_sha2_password作为身份验证插件，旧版本是mysql_native_password，此时需要换回旧版插件
+
+进入MySQL客户端：
+
+```
+ALTER USER root@localhost IDENTIFIED WITH mysql_native_password BY 'your_password';
+FLUSH PRIVILEGES;
+```
+
+# MYSQL中的索引
 
 使用索引可以在大型数据库中减少数据搜索的时间
 
 常用的索引有INDEX，PRIMARY KEY（主键），FULLTEXT
 
-### 1.创建INDEX索引
+## 1.创建INDEX索引
 
 通过ALTER创建：
 
@@ -410,7 +434,7 @@ ALTER TABLE pet ADD INDEX(name(10));
 
 *通过索引进行检索比较复杂，日后再续*
 
-### 2.主键
+## 2.主键
 
 主键是每行都不同的`唯一`值，使用逐渐可以唯一的检索到某一行，在关系型数据库中一个表的主键通常会作为另一个表的外键`foreign key`
 
@@ -424,7 +448,7 @@ ALTER TABLE pet ADD PRIMARY KEY(id(10));
 
 创建了主键之后使用`DESCRIBE pet`会看到`Key`这一列会发生变化
 
-### 3.在创建表时创建索引
+## 3.在创建表时创建索引
 
 ```sql
 CREATE TABLE classics (
@@ -441,7 +465,7 @@ PRIMARY KEY (isbn)) ENGINE MyISAM;
 ```
 注意最后要设置储存引擎，一般为`MyISAM`
 
-## EXPLAIN方法
+# EXPLAIN方法
 
 使用EXPLAIN方法可以解释如何发出的查询并打印出来，只要在SELECT前面加上它就能实现
 
@@ -450,11 +474,11 @@ EXPLAIN SELECT* FROM pet;
 ```
 使用它也可以查看查询是否通过索引来实现
   
-## 从文件中调用SQL命令
+# 从文件中调用SQL命令
 
 对于一些重复使用的命令，可以将其保存在文件中调用
 
-### 在命令行中使用：
+## 在命令行中使用：
 
 ```
 shell> mysql -h host -u user -p < finename
@@ -464,7 +488,7 @@ Enter password: ********
 - 可以加上参数`-t`来使输出的格式与直接在命令行输入SQL命令时的输出格式一致
 - 可以加上参数`-v`来打印所运行的SQL命令
 
-### 在mysql中使用：
+## 在mysql中使用：
 有两种方法
 
 ```
@@ -472,7 +496,7 @@ mysql> source filename;
 mysql> \. filename
 ```
 
-## 规范化
+# 规范化
 
 将数据分开放入表中并创建主键的过程称为规范化，主要目的是保证每一条信息在数据库中只出现一次
 
@@ -480,24 +504,24 @@ mysql> \. filename
 
 *涉及到好多图表，先把概念记到这里*
 
-### 第一范式
+## 第一范式
 
 第一范式有三个要求：
 - 不能有包含相同类型数据的重复列出现
 - 所有的列都是单值
 - 要有一个主键来标识每一行
 
-### 第二范式
+## 第二范式
 
 第二范式首先要求满足第一范式，并在第一范式的基础上`消除多行间的冗余`
 
-### 第三范式
+## 第三范式
 
 第三范式在第一、第二范式的基础上，要求`数据不直接依赖于主键`
 
 使用第三范式通常会增加表的数量，一般不需要使用
 
-## 事务
+# 事务
 
 使用MYSQL中的事务功能可以撤销一些操作，使用方法：
 
@@ -520,7 +544,7 @@ ROLLBACK;
 ```
 这样UPDATE和INSERT操作就被撤回了
 
-## 备份及恢复
+# 备份及恢复
 
 使用`mysqldump`命令可以将数据库进行备份（在命令行下）
 

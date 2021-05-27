@@ -13,7 +13,7 @@ Docker实践中遇到的一些问题和解决方法
 
 <!--more-->
 
-### 换源
+## 换源
 
 在自建镜像时，通常需要依赖基础镜像，而基础镜像往往是很纯净的，需要自己安装一些辅助软件
 
@@ -48,7 +48,7 @@ trusted-host=mirrors.aliyun.com
 COPY pip.conf /root/.pip/pip.conf
 ```
 
-### mysql自动创建库表
+## mysql创建容器时自动运行sql命令
 
 新键的mysql容器中mysql是空的，为了更方便的执行业务，最好是可以在创建时自动把需要的库表数据添加好
 
@@ -60,7 +60,15 @@ COPY ./*.sql /docker-entrypoint-initdb.d/
 
 即把本地的`.sql`文件都添加到容器的`/docker-entrypoint-initdb.d`路径下，在容器创建时会自动执行这里的sql文件来初始化数据库
 
-### mysql设置初始密码
+.sql文件不仅可以用来创建库表，也可以进行一些`初始配置`，比如在某个sql文件中加入一句;
+
+```
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+```
+
+就可以自动修改验证方式
+
+## mysql设置初始密码
 
 如果在命令行通过docker run启动，通过`-e`标签来设置，如：
 
@@ -81,7 +89,7 @@ services:
             MYSQL_ROOT_PASSWORD: "123456"
 ```
 
-### redis设置密码
+## redis设置密码
 
 本质上是在启动容器后自动运行一条redis-server设置密码的命令
 
@@ -103,7 +111,7 @@ services:
         command: ["redis-server", "--appendonly", "yes", "--requirepass","123456"]
 ```
 
-### 前台进程
+## 前台进程
 
 Docker的容器必须要有前台进程在运行，否则就会自动退出，变成Exited状态
 
@@ -122,7 +130,7 @@ tail -f /dev/null
 
 `/dev/null`表示空设备，它没有任何内容，所以这条命令几乎不消耗，但可以一直占用前台进程
 
-### 数据卷挂载的问题
+## 数据卷挂载的问题
 
 有时在创建镜像的时候已经在Dockerfile中复制文件并指定了工作目录
 

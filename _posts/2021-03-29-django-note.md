@@ -14,9 +14,9 @@ article_header:
 <!--more-->
 
 
-## 安装
+# 安装
 
-### 树莓派上(Debian)
+## 树莓派上(Debian)
 
 ```
 pip3 install Django
@@ -28,7 +28,7 @@ pip3 install Django
 export PATH=$PATH:/home/pi/.local/bin
 ```
 
-### centos7
+## centos7
 
 ```
 pip3 install django
@@ -46,7 +46,7 @@ export PATH=$PATH:/usr/local/python3/bin
 
 每当修改过该文件之后，执行`source ~/.bash_profile`使改动生效
 
-## 创建项目
+# 创建项目
 
 可以使用`django-admin`工具来自动创建
 ```
@@ -83,7 +83,7 @@ python3 manage.py runserver 0.0.0.0:8000    // 后面的地址和端口可以不
 - 首次运行时可能会在页面上可能到`DisallowHost`错误，这时要修改`mysite/settings.py`文件，将其中的`ALLOWED_HOSTS = []`括号中添加ip地址，
 或者直接`ALLOWED_HOSTS = ['*']`来允许所有ip访问
 
-## 创建app
+# 创建app
 
 django的程序运行一般是通过app来实现的，可以在命令行创建app：
 
@@ -104,7 +104,7 @@ polls/
     views.py
 ```
 
-### 在浏览器上显示自定义内容
+## 在浏览器上显示自定义内容
 
 需要编辑`3个`文件
 - 1.首先是`polls/views.py`：
@@ -148,9 +148,9 @@ python manage.py runserver
 ALLOWED_HOSTS = ['*']   # 在括号中添加'*'
 ```
 
-## django操作mysql数据库
+# django操作mysql数据库
 
-### 1.配置mysql支持并创建数据库
+## 1.配置mysql支持并创建数据库
 
 django默认的数据库是SQLite，要修改成mysql的支持，修改`mysite/settings.py`，将DATABASES配置项的内容替换成下面的内容：
 ```python
@@ -174,7 +174,7 @@ python manage.py migrate
 
 所创建的表是依据`mysite/settings.py`文件中`INSTALLED_APPS`配置项里面的内容
 
-#### 常见错误
+### 常见错误
 
 有时执行migrate会提示找不到mysqlclient（比如在centos7系统中），如何在centos7中安装mysqlclient参考[这里](https://github.com/Chunar5354/some_notes/blob/master/notes/Centos%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE.md)
 
@@ -207,7 +207,7 @@ vim /usr/local/python3/lib/python3.8/site-packages/django/db/backends/mysql/oper
 此时可以正常运行`python manage.py migrate`
 
 
-### 2.为数据库添加自定义数据（models）
+## 2.为数据库添加自定义数据（models）
 
 - 1.创建新表，编辑`polls/models.py`：
 ```
@@ -272,7 +272,7 @@ Running migrations:
 python manage.py sqlmigrate polls 0001
 ```
 
-## 创建用户
+# 创建用户
 
 创建用户之后可以在`localhost:8000/admin`界面登录来查看数据库，输入命令：
 ```
@@ -291,7 +291,7 @@ admin.site.register(Question)     # 将表添加到admin中
 
 保存该文件，再从浏览器上登录，就能够看见`Question`表，并对其进行操作
 
-## 添加已有的数据库
+# 添加已有的数据库
 
 首先修改`mysite/settings.py`中的DATABASES：
 ```python
@@ -321,7 +321,7 @@ python manage.py migrate
 
 - tips：注意要再`mysite/setings.py`中的 `INSTALLED_APPS` 配置项中包含models的app（因为有可能不是polls）
 
-### 实现管理已有数据库
+## 实现管理已有数据库
 
 用上面的方法添加已有数据库可能会出现一些问题，比如在migrate的时候因为格式不匹配等，可能会强制改变原来数据库的数据格式，下面介绍一种方式可以将原有的数据库比较好的匹配到django框架当中：
 
@@ -406,7 +406,7 @@ source database.sql;
 
 此时原来的数据库的数据就完美的融入了django框架啦
 
-## 使用channels模块实现websocket
+# 使用channels模块实现websocket
 
 安装channels：
 ```
@@ -436,7 +436,7 @@ application = ProtocolTypeRouter({
 
 此时已经基本搭建好了channels框架
 
-## 设置时区以及中文显示
+# 设置时区以及中文显示
 
 修改`mysite/settings.py`，文件，将其中的
 ```python
@@ -447,7 +447,7 @@ USE_TZ = False                # 如果原来数据库中已经有关于时间的
 三行改成这个样子
 
 
-## Django中使用redis作为缓存
+# Django中使用redis作为缓存
 
 设置了redis作为django的缓存数据库后就可以使用django内置的cache方法来直接缓存数据，不需要再通过额外的调用python的redis扩展库
 
@@ -457,7 +457,7 @@ USE_TZ = False                # 如果原来数据库中已经有关于时间的
 # pip install django-redis
 ```
 
-### 使用方法
+## 使用方法
 
 首先需要再settings中添加这样一段：
 ```python
@@ -498,7 +498,7 @@ def write_to_cache(self,username)
 
 django-redis的功能不是很全，查询和写入时只能够使用简单的get和set方法，不能使用诸如hash等功能
 
-## Django支持markdown
+# Django支持markdown
 
 首先安装Python的markdown模块
 
@@ -528,7 +528,7 @@ def some_page(request):
     return render(request, 'some_page.html')
 ```
 
-## 前端小知识
+# 前端小知识
 
 在页面中为代码块插入语法高亮
 
@@ -555,7 +555,7 @@ def some_page(request):
 
 放到页面最后
 
-## 导出依赖文件
+# 导出依赖文件
 
 - 通过pip
 
@@ -582,3 +582,132 @@ $ pipreqs ./ --encoding=utf-8 --force
 ```
 
 会自动在当前路径下生成`requirements.txt`文件
+
+
+# 修改默认的用户表
+
+在实际应用中常常需要保存用户的电话号码信息，而Django默认的auth_user表中并没有这个字段，就需要修改默认的用户模型
+
+分为几个步骤
+
+- 1.修改models.py
+
+在某个APP下的models.py中输入下面的内容：
+
+```python
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+ 
+ 
+class UserProfile(AbstractUser):
+	mobile = models.CharField(max_length=11, primary_key=True, verbose_name="手机号", default="", error_messages={'unique': '手机号已存在'})
+	username = models.CharField(max_length=30, verbose_name="用户名", default="")
+ 
+	class Meta:
+		verbose_name = "用户信息"
+		verbose_name_plural = verbose_name
+ 
+	def __str__(self):
+		return self.username
+```
+
+自定义的用户类要继承`AbstractUser`类
+
+这里做了两个比较重大的修改：
+
+一是将mobile设置成了`主键`，它会取代原来默认的自增id主键，新建的表中将没有自增id字段
+
+二是username原本是默认唯一（unique），在UserProfile中将它重写后将不再具有unique属性
+
+- 2.修改settings.py
+
+在settings.py中添加：
+
+```python
+AUTH_USER_MODEL = 'userprofile.UserProfile'
+```
+
+userprofile是我的app名称mUserProfile是类名
+
+- 3.migrate
+
+```
+$ python manage.py makemigrations
+$ python manage.py migrate
+```
+
+注意因为不仅是向原auth_user表添加新字段，还修改了原本的字段（主要是因为取消了原来的自增id主键），所以migrate操作一定要在建库的开始执行，否则可能会报错
+
+如果不是在建库的开始执行，报错的话可以尝试删掉`app/migrations/`下的所有`000x_xxx.py`文件，重新执行makemigrations和migrate
+
+或者可以备份数据后删库重建
+
+执行成功后会在指定的库中创建`userprofile_userprofile`表(app_小写的class)
+
+```
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| password     | varchar(128) | NO   |     | NULL    |       |
+| last_login   | datetime(6)  | YES  |     | NULL    |       |
+| is_superuser | tinyint(1)   | NO   |     | NULL    |       |
+| username     | varchar(30)  | NO   |     | NULL    |       |
+| first_name   | varchar(30)  | NO   |     | NULL    |       |
+| last_name    | varchar(150) | NO   |     | NULL    |       |
+| email        | varchar(254) | NO   |     | NULL    |       |
+| is_staff     | tinyint(1)   | NO   |     | NULL    |       |
+| is_active    | tinyint(1)   | NO   |     | NULL    |       |
+| date_joined  | datetime(6)  | NO   |     | NULL    |       |
+| mobile       | varchar(11)  | NO   | PRI | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+```
+
+注意原来的自增id没有了，而且username也不是unique了
+
+# 修改用户验证方式
+
+大多数的web应用都支持用户名、手机号和邮箱等多种登陆方式，但Django默认只支持用户名，需要对其进行扩展
+
+在某APP的views.py中（可以在任何地方，views.py比较方便）：
+
+```python
+from django.contrib.auth.backends import ModelBackend
+from django.db.models import Q
+
+class CustomBackend(ModelBackend):
+	def authenticate(self, request, username=None, password=None, **kwargs):
+		try:
+            # 传进的username参数等于表中的username，email，mobile中任何一个字段都可以
+			user = UserProfile.objects.get(Q(username=username) | Q(email=username) | Q(mobile=username))
+			if user.check_password(password):
+				return user
+		except Exception as e:
+			return None
+```
+
+然后修改settings.py，添加：
+
+```python
+AUTHENTICATION_BACKENDS = [
+    'userprofile.views.CustomBackend',
+]
+```
+
+userprofile是我的app名，实际改成自己的
+
+然后就可以在登录的时候使用：
+
+```python
+from django.contrib.auth import login
+from django.http import HttpResponse
+
+def user_login(request):
+	...
+	customer_auth = CustomBackend()
+	user = customer_auth.authenticate(request, username=your_usernmae, password=your_password)
+	if user:
+		login(request, user)
+		return HttpResponse('登录成功')
+	else:
+		return HttpResponse('账号或密码有误，请重新输入')
+```
