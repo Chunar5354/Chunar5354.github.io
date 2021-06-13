@@ -215,3 +215,13 @@ vChunar	.*	.*	.*
 $ rabbitmqctl clear_permissions -p vChunar chunar
 Clearing permissions for user "chunar" in vhost "vChunar" ...
 ```
+
+### 一些错误情况
+
+- 1.图形控制台显示`Overview: Management only mode`，无法查看消息的监控图像
+
+如果使用的是docker镜像的话，普通的rabbitmq是看不到图像的，需要使用`rabbitmq:management`镜像:
+
+```
+$ docker pull rabbitmq:management
+```
