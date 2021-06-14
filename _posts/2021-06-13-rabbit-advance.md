@@ -388,6 +388,8 @@ func NewRabbitMQ(queueName, exchange, key string) RabbitMQ {
 
 // 生产者
 func (r *RabbitMQ) Publish(message string) {
+	defer r.conn.Close()
+	defer r.channel.Close()
 	// 发送消息到队列中
 	r.channel.Publish(
 		r.Exchange,  // 交换器名
@@ -403,6 +405,8 @@ func (r *RabbitMQ) Publish(message string) {
 
 // 消费者
 func (r *RabbitMQ) Consume() {
+	defer r.conn.Close()
+	defer r.channel.Close()
 	// 申请队列，如果队列不存在会自动创建，如果存在则跳过创建
 	// 保证队列存在，消息能发送到队列中
 	_, err := r.channel.QueueDeclare(
